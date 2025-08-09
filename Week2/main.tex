@@ -1,0 +1,607 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{NPTEL PMRF Live Sessions}
+\lhead{DataScience For Engineers}
+\cfoot{\thepage}
+
+
+\newtcolorbox{defbox}[1][]{
+    colback=gray!5!white,
+    colframe=gray!75!black,
+    title=#1,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{quesbox}[1][]{
+    colback=lightgray!5!white,
+    colframe=lightgray!75!black,
+    title=#1,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{examplebox}[1][]{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    title=#1,
+    fonttitle=\bfseries
+}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+
+\title{\color{blue}Data Science For Engineers\\NPTEL PMRF Live Sessions\\}
+\author{Teaching Assistant: Parvathy Neelakandan\\PhD Student}
+\date{05-08-2025}
+
+\begin{document}
+
+\maketitle
+% \tableofcontents
+% \newpage
+
+\section{Representation of data}
+
+Data refers to a collection of observations, measurements or facts in different forms. 
+For example, consider a table containing details of student scores. 
+This could include information such as names of the students, the subjects they wrote exam for, their scores. 
+This forms a dataset. Here, information about each student refers to an observation or sample.
+Names of students, scores are the features or characteristics of those samples/observations.
+
+\begin{quesbox}[There are different ways in which such data can be stored]
+\begin{itemize}
+\item Can you recall some of these that we discussed in the last class?
+\item When is each of it used?
+\end{itemize}
+\end{quesbox}
+
+\subsection{What is a Matrix in Data Science Terms?}
+
+In data science terms, a matrix is a structured way to represent or store data similar to a table, where rows represent the samples and columns represent the features of each sample.
+
+\begin{examplebox}[Examples]
+\begin{itemize}
+    \item Medical dataset: Rows may represent patients and columns might contain information such as blood pressure, sugar level, heart rate, age, etc.
+    \item Images: A grayscale image can be represented as a two-dimensional matrix, where each element denotes the value of a pixel.
+\end{itemize}
+\end{examplebox}
+
+\begin{quesbox}[Matrix in R]
+    How do you create a matrix in R?
+\end{quesbox}
+
+\section{Identification of independent attributes}
+
+When we organize data into a matrix, each column represents a feature (attribute) and each row represents an observation. 
+Once we have created this matrix to store our data, this gives us access to tools that help us understand the data more deeply. 
+One question could be: \textbf{"Do all the features in our data carry unique information or are all the features needed?"}.
+
+\begin{examplebox}[Example]
+
+Consider a dataset about houses with columns for:
+\begin{itemize}
+    \item Area in square feet
+    \item Area in square meters
+    \item Price in rupees
+    \item Price in euros
+\end{itemize}
+
+The areas in different units and prices in different units carry similar information. 
+This means that we do not have 4 independent pieces of information per house. 
+We have only two unique information.
+
+\end{examplebox}
+
+\subsection{What is the benefit of knowing this?}
+\noindent It tells us how many variables are truly independent or carry unique information. Knowing this would help us
+identify the redundant features, remove the correlated features and optimize storage and computation.
+
+
+\subsection{Matrix Rank}
+
+How do we find relationships between features from the data? 
+
+\begin{defbox}[Matrix Rank]
+\begin{definition}
+The rank of a matrix $A$ is the maximum number of linearly independent rows (or columns) in the matrix. 
+It represents the dimension of the vector space spanned by the rows (or columns) of the matrix. 
+\end{definition}
+\end{defbox}
+
+
+\subsection{Practice questions: Rank}
+
+\textbf{MCQ 1:} What is the rank of the following matrix?
+\[\begin{pmatrix}
+2 & 4 & 6 \\
+1 & 2 & 3 \\
+3 & 6 & 9
+\end{pmatrix}\]
+
+\begin{enumerate}
+    \item 1
+    \item 2
+    \item 3
+    \item 0
+\end{enumerate}
+\newpage
+
+\noindent \textbf{MCQ 2:} If a $4 \times 6$ matrix has rank 3, what is the maximum number of linearly independent columns it can have?
+
+\begin{enumerate}
+    \item 3
+    \item 4
+    \item 6
+    \item Cannot be determined
+\end{enumerate}
+
+\noindent \textbf{MCQ 3:} For an $m \times n$ matrix, the maximum possible rank is:
+
+\begin{enumerate}
+    \item $m$
+    \item $n$
+    \item $m + n$
+    \item $\min(m, n)$
+\end{enumerate}
+
+\begin{defbox}
+For an $m \times n$ matrix $A$, the maximum possible rank is $\min(m, n)$.
+\end{defbox}
+
+\noindent If the rank is less than the total number of variables (columns), then there must be some relationships among the variables. 
+That is, some variables can be written as combinations of others.
+\textbf{How do we identify those relationships?}
+
+\section{Null Space}
+
+For matrix $A$, are there set of vectors $\mathbf{x}$ that satisfies the equation $A\mathbf{x} = \mathbf{0}$? 
+This would mean that the set of vectors $\mathbf{x}$ forms the null space of $A$. If such a set $\mathbf{x}$ exists, then there are linear relationships among the variables (columns) of the matrix. 
+The size of null space provides the number of such linear relationships among the variables and the set $\mathbf{x}$ gives the linear relationship between variables.
+
+\begin{defbox}[Null Space]
+\begin{definition}
+For matrix $A$, the null space (or kernel) consists of all vectors $\mathbf{x}$ that satisfy the equation $A\mathbf{x} = \mathbf{0}$.
+
+\[\text{Null}(A) = \{\mathbf{x} : A\mathbf{x} = \mathbf{0}\}\]
+\end{definition}
+\end{defbox}
+
+\subsection{The Rank-Nullity Theorem}
+
+The number of columns of a matrix $A$ is the sum of the rank of $A$ and the nullity of $A$.
+
+For an $m \times n$ matrix $A$:
+\[\text{rank}(A) + \text{nullity}(A) = n\]
+where $\text{nullity}(A)$ is the dimension of the null space.
+
+
+\subsection{Practice questions: Null space}
+
+\textbf{MCQ 4:} For a $3 \times 5$ matrix with rank 2, what is the dimension of its null space?
+
+\begin{enumerate}
+    \item 2
+    \item 3
+    \item 5
+    \item Cannot be determined
+\end{enumerate}
+
+\noindent \textbf{MCQ 5:} According to the rank-nullity theorem, for matrix $A$ with $n$ columns:
+
+\begin{enumerate}
+    \item $\text{rank}(A) + \text{nullity}(A) = n$
+    \item $\text{rank}(A) - \text{nullity}(A) = n$
+    \item $\text{rank}(A) \times \text{nullity}(A) = n$
+    \item $\text{rank}(A) = \text{nullity}(A)$
+\end{enumerate}
+
+\noindent \textbf{MCQ 6:} The null space of matrix $\begin{pmatrix} 1 & 2 \\ 3 & 6 \end{pmatrix}$ is:
+
+\begin{enumerate}
+    \item $\{\mathbf{0}\}$
+    \item $\text{span}\{[2, -1]\}$
+    \item $\text{span}\{[1, -2]\}$
+    \item All of $\mathbb{R}^2$
+\end{enumerate}
+
+\noindent \textbf{MCQ 7:} If the null space of a square matrix contains only the zero vector, then the matrix is:
+
+\begin{enumerate}
+    \item Singular
+    \item Non-invertible
+    \item Invertible
+    \item Not full rank
+\end{enumerate}
+
+\section{Systems of Linear Equations}
+
+\subsection{The Three Cases}
+
+When solving $A\mathbf{x} = \mathbf{b}$, the relationship between the number of equations ($m$) and variables ($n$) determines the nature of solutions:
+
+\begin{defbox}[Types of Linear Systems]
+\begin{enumerate}
+    \item \textbf{Case 1: $m = n$ }
+    \begin{itemize}
+        \item When number of equations ($m$) = number of variables ($n$)
+        \item Full rank (rank = $n$): Unique solution exists
+        \item Rank deficient: Either no solution or infinitely many solutions
+    \end{itemize}
+    
+    \item \textbf{Case 2: $m > n$ (Overdetermined System)}
+    \begin{itemize}
+        \item When number of equations ($m$) $>$ number of variables ($n$)
+        \item All equations may not be satisfied with given variables -$>$ no-solution case
+        \item Use least squares for best approximate solution: minimize $\|A\mathbf{x} - \mathbf{b}\|$
+    \end{itemize}
+    
+    \item \textbf{Case 3: $m < n$ (Underdetermined System)}
+    \begin{itemize}
+        \item When number of equations ($m$) $<$ number of variables ($n$)
+        \item Results in infinitely possible solutions
+        \item How do we choose single best solution from infinite set?
+    \end{itemize}
+\end{enumerate}
+
+\end{defbox}
+
+\begin{defbox}[Consistent System]
+\begin{definition}
+A system of equations is said to be consistent if there is at least one set of values that satisfies the set of equations.
+\end{definition}
+\end{defbox}
+
+\begin{quesbox}[Moore-Penrose Pseudoinverse]
+    What is Moore-Penrose Pseudoinverse? How do we calculate it?
+\end{quesbox}
+
+\section{Vectors}
+
+A vector represents a point in $n$-dimensional space:
+\begin{itemize}
+    \item $n = 2$: Point in plane $\mathbb{R}^2$
+    \item $n = 3$: Point in 3D space $\mathbb{R}^3$
+    \item $n > 3$: Point in higher-dimensional space $\mathbb{R}^n$
+\end{itemize}
+
+\subsection{Vector Magnitude Calculation}
+
+How do we calculate the magnitude of a vector?
+One way to calculate the magnitude is to take the Euclidean norm. 
+
+\begin{defbox}[Vector Magnitude]
+\begin{definition}
+For vector $v = [v_1, v_2, \ldots, v_n]$, the Euclidean norm is:
+\[\|\mathbf{v}\|_2 = \sqrt{v_1^2 + v_2^2 + \cdots + v_n^2}\]
+\end{definition}
+\end{defbox}
+
+
+\begin{defbox}[Unit Vector]
+\begin{definition}
+A unit vector has magnitude 1
+\[\hat{\mathbf{u}} = \frac{\mathbf{v}}{\|\mathbf{v}\|}\]
+\end{definition}
+\end{defbox}
+
+\subsection{Practice questions: Vectors}
+
+\textbf{MCQ 8:} The magnitude of vector $[3, -4, 12]$ is:
+
+\begin{enumerate}
+    \item 11
+    \item 13
+    \item 15
+    \item 19
+\end{enumerate}
+
+\noindent \textbf{MCQ 9:} A unit vector has magnitude:
+
+\begin{enumerate}
+    \item 0
+    \item 1
+    \item Any positive value
+    \item Depends on the dimension
+\end{enumerate}
+
+\noindent \textbf{MCQ 10:} To find a unit vector in the direction of $[6, 8]$, we:
+
+\begin{enumerate}
+    \item Multiply by 10
+    \item Divide by 10
+    \item Multiply by $\frac{1}{10}$
+    \item Divide by 14
+\end{enumerate}
+
+
+\subsection{Orthogonal and Orthonormal Vectors}
+
+Two vectors are orthogonal to each other if their dot product is zero.
+
+\begin{defbox}[Dot Product]
+\begin{definition}
+For vectors $\mathbf{u}$ and $\mathbf{v}$ in $\mathbb{R}^n$:
+\[\mathbf{u} \cdot \mathbf{v} = u_1v_1 + u_2v_2 + \cdots + u_nv_n\]
+\end{definition}
+\end{defbox}
+
+
+\textbf{What do dot product between two vectors tell us?} \\
+
+
+\begin{defbox}[Orthonormal Vectors]
+\begin{definition}
+Orthonormal vectors are orthogonal vectors with unit magnitude.
+\end{definition}
+\end{defbox}
+
+
+
+\subsection{Practice questions: Orthogonality}
+
+\textbf{MCQ 11:} Two vectors are orthogonal if their:
+
+\begin{enumerate}
+    \item Magnitudes are equal
+    \item Dot product is zero
+    \item Cross product is zero
+    \item Sum is zero
+\end{enumerate}
+
+\noindent \textbf{MCQ 12:} The dot product of $[1, 2, -1]$ and $[2, -1, 2]$ is:
+
+\begin{enumerate}
+    \item -2
+    \item 0
+    \item 2
+    \item 4
+\end{enumerate}
+
+\noindent \textbf{MCQ 13:} Orthonormal vectors are:
+
+\begin{enumerate}
+    \item Orthogonal with unit magnitude
+    \item Parallel with unit magnitude
+    \item Only orthogonal
+    \item Only unit vectors
+\end{enumerate}
+
+\noindent \textbf{MCQ 14:} Vectors $[2, 3]$ and $[6, -4]$ are:
+
+\begin{enumerate}
+    \item Orthogonal
+    \item Parallel
+    \item Neither orthogonal nor parallel
+    \item Linearly dependent
+\end{enumerate}
+
+
+\subsection{Basis and Span}
+
+
+\begin{defbox}[Span]
+\begin{definition}
+The span of a set of vectors is the set of all possible linear combinations of those vectors.
+\end{definition}
+\end{defbox}
+
+\begin{defbox}[Basis]
+\begin{definition}
+A basis is a set of vectors that are linearly independent and span the entire vector space.
+\end{definition}
+\end{defbox}
+
+\subsubsection{Interpreting span and basis}
+
+Span represents all points that are reachable by linear combinations of the set of vectors. 
+This could be a line, plane, or any higher-dimensional subspace. Basis gives the minimum number of vectors needed to represent any vector in the space.
+
+\subsection{Practice questions: Basis and Span}
+
+\textbf{MCQ 15:} A basis is a set of vectors that are:
+
+\begin{enumerate}
+    \item Independent and span the space
+    \item Orthogonal and span the space
+    \item Unit vectors that span the space
+    \item Any vectors that span the space
+\end{enumerate}
+
+\noindent \textbf{MCQ 16:} The span of vectors $\{[1, 0, 1], [0, 1, 1]\}$ in $\mathbb{R}^3$ is:
+
+\begin{enumerate}
+    \item All of $\mathbb{R}^3$
+    \item A plane through the origin
+    \item A line through the origin
+    \item Just the zero vector
+\end{enumerate}
+
+\noindent \textbf{MCQ 17:} The vectors $\{[1, 2], [2, 4]\}$ form a basis for:
+
+\begin{enumerate}
+    \item $\mathbb{R}^2$
+    \item A line through the origin
+    \item No vector space
+    \item A plane in $\mathbb{R}^3$
+\end{enumerate}
+
+\noindent \textbf{MCQ 18:} Minimum number of vectors needed to form a basis for $\mathbb{R}^2$?
+
+\begin{enumerate}
+    \item 1
+    \item 2
+    \item 3
+    \item Any number
+\end{enumerate}
+
+\subsection{Projection}
+
+\begin{defbox}[Orthogonal Projection]
+\begin{definition}
+The orthogonal projection of vector $\mathbf{u}$ onto vector $\mathbf{v}$ is:
+\[\text{proj}_{\mathbf{v}}(\mathbf{u}) = \frac{\mathbf{u} \cdot \mathbf{v}}{\|\mathbf{v}\|^2}\mathbf{v}\]
+\end{definition}
+\end{defbox}
+
+
+\subsection{Practice questions: Projection}
+
+\textbf{MCQ 19:} The projection of $[4, 3]$ onto $[1, 0]$ is:
+
+\begin{enumerate}
+    \item $[4, 0]$
+    \item $[1, 0]$
+    \item $[4, 3]$
+    \item $[0, 3]$
+\end{enumerate}
+
+\section{Hyperplanes}
+
+Geometric entity whose dimension is one less than that of the ambient space. 
+For example: the hyperplanes for a 3D space are 2D planes and hyperplane for a 2D space are 1D lines and so on.
+
+
+\noindent Hyperplane is represented by the equation $\mathbf{x}^T \mathbf{n} + b = 0$
+
+\begin{itemize}
+    \item $\mathbf{n}$: normal vector (perpendicular to hyperplane)
+    \item $b$: bias term (shifts hyperplane from origin)
+\end{itemize}
+
+\subsection{Halfspaces}
+
+Halfspaces on either sides of a line can have different characteristics that can help with classification problems. For eg:, the equation $\mathbf{x}^T \mathbf{n} + b = 0$ divides space into two halfspaces:
+\begin{itemize}
+    \item $\mathbf{x}^T \mathbf{n} + b > 0$: One side
+    \item $\mathbf{x}^T \mathbf{n} + b < 0$: Other side
+\end{itemize}
+
+This is useful for classification tasks.
+
+\subsection{Practice questions: Hyperplanes}
+
+\textbf{MCQ 20:} In 4-dimensional space, a hyperplane has dimension:
+
+\begin{enumerate}
+    \item 4
+    \item 3
+    \item 2
+    \item 1
+\end{enumerate}
+
+
+\noindent \textbf{MCQ 21:} In 2D space, hyperplanes are:
+
+\begin{enumerate}
+    \item Points
+    \item Lines
+    \item Planes
+    \item Cubes
+\end{enumerate}
+
+
+\section{Eigenvalues and Eigenvectors}
+
+
+Consider the equation $A\mathbf{x} = \mathbf{b}$. What does this mean geometrically? When we multiply a matrix $A$ by a vector $\mathbf{x}$, we usually get a vector pointing in a completely different direction. 
+However, special vectors called eigenvectors only get scaled (stretched or shrunk) without changing direction.
+
+
+\begin{defbox}[Eigenvalue and Eigenvector]
+\begin{definition}
+For a square matrix $A$, if there exists a non-zero vector $\mathbf{x}$ and scalar $\lambda$ such that:
+\[A\mathbf{x} = \lambda\mathbf{x}\]
+then $\lambda$ is called an eigenvalue and $\mathbf{x}$ is called an eigenvector.
+
+The characteristic equation becomes:
+\[|A - \lambda I| = 0\]
+\end{definition}
+\end{defbox}
+
+\vspace{2em}
+\noindent \textbf{Why Eigenvalues and vectors matter?} 
+
+\subsection{Computing Eigenvalues}
+
+To find eigenvalues of matrix $A$, solve the characteristic equation:
+\[\det(A - \lambda I) = 0\]
+
+Properties of Eigenvalues for different matrix types
+\begin{itemize}
+    \item \textbf{Real matrices:} Eigenvalues can be real or complex numbers. If eigenvalues are complex, then the corresponding eigenvectors are also complex. 
+    \item \textbf{Symmetric matrices:} Eigenvalues and eigenvectors are always real and there will be $n$ linearly independent eigenvectors.
+    \item \textbf{Matrices of the form $A^T A$ or $AA^T$:} Have real and non-negative eigenvalues with linearly independent eigenvectors.
+\end{itemize}
+
+\noindent \textbf{How are the null space and column space related to eigenvalues and eigenvectors?}
+
+\begin{itemize}
+\item When eigenvalues are zero ($A\mathbf{x} = \mathbf{0}$), the eigenvectors corresponding to zero eigenvalues are in the null space of the matrix. 
+\item If $A$ is symmetric and if there are $r$ eigenvalues which have a value of 0, then the dimensionality of the null space is $r$. 
+If there are $n$ real eigenvalues, then the remaining $(n-r)$ are non-zero independent vectors and these form the basis for column space.
+\end{itemize}
+
+\subsection{Practice questions}
+
+\textbf{MCQ 22:} To find eigenvalues of matrix $A$, we solve:
+
+\begin{enumerate}
+    \item $\det(A) = 0$
+    \item $\det(A - \lambda I) = 0$
+    \item $A - \lambda I = 0$
+    \item $A\mathbf{x} = \lambda$
+\end{enumerate}
+
+\noindent \textbf{MCQ 23:} For real matrices, eigenvalues can be:
+
+\begin{enumerate}
+    \item Only real numbers
+    \item Only complex numbers
+    \item Both real and complex numbers
+    \item Neither real nor complex
+\end{enumerate}
+
+\noindent \textbf{MCQ 24:} The determinant of a $2 \times 2$ matrix $\begin{pmatrix} a & b \\ c & d \end{pmatrix}$ is:
+
+\begin{enumerate}
+    \item $ad + bc$
+    \item $ad - bc$
+    \item $ac - bd$
+    \item $ab - cd$
+\end{enumerate}
+
+\noindent \textbf{MCQ 25:} The determinant of matrix $\begin{pmatrix} 2 & 1 \\ 4 & 3 \end{pmatrix}$ is:
+
+\begin{enumerate}
+    \item 2
+    \item 5
+    \item 6
+    \item 10
+\end{enumerate}
+
+\noindent \textbf{MCQ 26:} When eigenvalues are zero ($A\mathbf{x} = \mathbf{0}$), 
+the corresponding eigenvectors are in the:
+
+\begin{enumerate}
+    \item Column space
+    \item Row space
+    \item Null space
+    \item Entire space
+\end{enumerate}
+
+\end{document}
