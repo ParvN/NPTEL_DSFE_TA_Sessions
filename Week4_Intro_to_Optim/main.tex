@@ -1,0 +1,152 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{NPTEL PMRF Live Sessions}
+\lhead{DataScience For Engineers}
+\cfoot{\thepage}
+
+
+\newtcolorbox{defbox}[1][]{
+    colback=gray!5!white,
+    colframe=gray!75!black,
+    title=#1,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{quesbox}[1][]{
+    colback=lightgray!5!white,
+    colframe=lightgray!75!black,
+    title=#1,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{examplebox}[1][]{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    title=#1,
+    fonttitle=\bfseries
+}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+
+\title{\color{blue}Data Science For Engineers\\NPTEL PMRF Live Sessions\\}
+\author{Teaching Assistant: Parvathy Neelakandan\\PhD Student}
+\date{19-08-2025}
+
+\begin{document}
+\maketitle
+
+\subsubsection*{Three Pillars of Data Science}
+\begin{enumerate}
+  \item \textbf{Linear Algebra} 
+  \item \textbf{Statistics} 
+  \item \textbf{Optimization} 
+\end{enumerate}
+
+\subsubsection*{Components of an Optimization Problem}
+\begin{itemize}
+  \item \textbf{Objective function} $f(x)$: to minimize or maximize
+  \item \textbf{Decision variables} $x$: what we can control
+  \item \textbf{Constraints}: restrictions on the variables
+\end{itemize}
+\[
+\text{minimize } f(x) \quad \text{subject to } g(x)\le 0,\; h(x)=0
+\]
+
+
+\section*{Univariate Optimization}
+
+Univariate optimization treats functions of a single variable.
+
+\begin{itemize}
+  \item \textbf{Local minimum:} lowest in a neighborhood
+  \item \textbf{Global minimum:} lowest over entire domain
+  \item \textbf{Convex functions:} 
+  \item \textbf{Non-convex functions:}
+\end{itemize}
+
+\begin{quesbox}[Finding a Minimum]
+  \begin{itemize}
+  \item \(f(x)=x^2-2x+3\)
+  \item \(f(x)=x^3-3x^2+6x+1\).
+  \end{itemize}
+\end{quesbox}
+
+\paragraph{First-Order Necessary Condition:} $f'(x^\ast)=0$.  
+\paragraph{Second-Order Sufficient Condition:} $f''(x^\ast)>0$.  
+
+\begin{quesbox}[Example]
+Find minima of $f(x)=3x^3-4x^2-12x+3$
+\end{quesbox}
+
+\section*{Multivariate Optimization }
+
+\textbf{Extension to Multiple Variables}
+\begin{itemize}
+  \item Contour plots: constant function value curves
+  \item Iterative methods choose a direction and a step size
+  \item Steepest descent direction: direction of maximum decrease
+\end{itemize}
+
+\[
+x^{k+1} = x^k + \alpha^k s^k
+\]
+
+
+\begin{quesbox}[contour plots]
+For $f(x_1,x_2)=x_1^2+x_2^2$: What will be the contour plot?
+\end{quesbox}
+
+\section*{Gradient and Hessian Matrix}
+
+\paragraph{Gradient:} $\nabla f = [\partial f/\partial x_1,...,\partial f/\partial x_n]^T$.  
+\paragraph{Hessian:} $H = [\partial^2 f/\partial x_i \partial x_j]$ 
+\begin{quesbox}[Positive definite matrix]
+  How do we know if the Hessian matrix is positive definite?
+\end{quesbox}
+
+\begin{quesbox}[Practice question]
+For $f(x_1,x_2)=3x_1^2+2x_1x_2+4.8x_2^2-5.4x_1-2x_2$
+\end{quesbox}
+
+\section*{Gradient Descent}
+
+\begin{enumerate}
+  \item Initialize $x^0$
+  \item Compute gradient $\nabla f(x^k)$
+  \item Update $x^{k+1} = x^k - \alpha^k \nabla f(x^k)$
+  \item Check convergence (How do we check convergence?)
+  \item Repeat
+\end{enumerate}
+
+\begin{quesbox}[Practice questions]
+\begin{enumerate}
+  \item Find the gradient of $f(x_1,x_2)=3x_1^2+x_1x_2+2x_2^2-5x_1-6x_2$.
+  \item Find the critical point(s) of $f(x_1,x_2)=2x_1^2+3x_2^2-4x_1-12x_2+8$.
+  \item Compute the Hessian for $f(x_1,x_2)=2x_1^2+x_1x_2+3x_2^2$.
+  \item One iteration of GD for $f(x_1,x_2)=x_1^2+x_2^2$ at $(2,5)$ with $\alpha=0.01$.
+  \item Check if $H=\begin{bmatrix}5&2\\2&6\end{bmatrix}$ is positive definite.
+  \item Find the minimum of $f(x_1,x_2)=2x_1^2+3x_2^2+4x_1-12x_2+7$.
+  \item For $f(x)=(x-3)^4+(x-3)^2$, find all critical points.
+  \item Solve $\nabla f=0$ for $f(x_1,x_2)=2x_1^2+3x_1x_2+x_2^2-4x_1-6x_2$.
+  \item Perform 3 GD iterations for $f(x_1,x_2)=x_1^2+x_2^2$ starting at $(1,3)$ with $\alpha=0.1$.
+\end{enumerate}
+\end{quesbox}
+
+\end{document}
