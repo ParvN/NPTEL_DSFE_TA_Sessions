@@ -1,0 +1,183 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\geometry{margin=1in}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{NPTEL PMRF Live Sessions}
+\lhead{DataScience For Engineers}
+\cfoot{\thepage}
+
+\newtcolorbox{defbox}[1][]{
+    colback=gray!5!white,
+    colframe=gray!75!black,
+    title=#1,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{quesbox}[1][]{
+    colback=lightgray!5!white,
+    colframe=lightgray!75!black,
+    title=#1,
+    fonttitle=\bfseries
+}
+
+\newtcolorbox{examplebox}[1][]{
+    colback=blue!5!white,
+    colframe=blue!75!black,
+    title=#1,
+    fonttitle=\bfseries
+}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+
+\title{\color{blue}Data Science For Engineers\\NPTEL PMRF Live Sessions\\}
+\author{Teaching Assistant: Parvathy Neelakandan\\PhD Student}
+\date{26-08-2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Multivariate Optimization with Equality Constraints}
+
+\textbf{Why constrained optimization?}
+\vspace{20mm}
+
+\begin{defbox}[Constrained Optimization Problem]
+A constrained optimization problem with equality constraints has the form:
+\vspace{50mm}
+\end{defbox}
+
+
+\begin{defbox}[Lagrangian Function]
+For the constrained optimization problem, the Lagrangian function is defined as:
+\vspace{30mm}
+\end{defbox}
+
+\begin{defbox}[Optimality Conditions]
+At the optimal point,
+\vspace{40mm}
+\end{defbox}
+
+\begin{examplebox}[Practice questions]
+\vspace{160mm}
+\end{examplebox}
+
+\subsubsection*{Geometric Interpretation}
+
+The constrained optimum occurs where the gradient of the objective function is a linear combination of the gradients of the constraint functions. 
+\vspace{5mm}
+
+\noindent \textbf{What does this mean geometrically?}
+\vspace{70mm}
+\begin{examplebox}[Practice question]
+\vspace{70mm}
+\end{examplebox}
+
+
+\subsection*{Multiple Equality Constraints}
+
+For problems with multiple equality constraints,
+
+\begin{defbox}[Multiple Constraints]
+\vspace{30mm}
+\end{defbox}
+
+\begin{examplebox}[Practice question]
+\vspace{70mm}
+\end{examplebox}
+
+
+\section*{Multivariate Optimization with Inequality Constraints}
+
+These problems are more complex because we must determine which constraints are active or inactive at the optimal solution.
+
+\begin{defbox}[Constrained Optimization Problem]
+\vspace{40mm}
+\end{defbox}
+
+\begin{defbox}[Karush-Kuhn-Tucker (KKT) Conditions]
+
+\vspace{90mm}
+\end{defbox}
+
+\begin{defbox}[Active and inactive constraints]
+\begin{itemize}
+    \item \textbf{Active constraint}: 
+    \vspace{10mm}
+    \item \textbf{Inactive constraint}: 
+    \vspace{10mm}
+\end{itemize}
+\end{defbox}
+
+\begin{examplebox}[Practice question]
+\vspace{80mm}
+\end{examplebox}
+
+
+\section*{Introduction to Data Science}
+
+\begin{defbox}
+\textbf{1. Classification Problems:} Assign labels 
+\begin{itemize}
+\item Binary classification
+\vspace{10mm}
+\item Multiclass classification
+\vspace{10mm}
+\end{itemize}
+\textbf{2. Function Approximation Problems:} Find mathematical relationships between input variables and output responses.
+\end{defbox}
+
+\begin{examplebox}[Practice question]
+\vspace{70mm}
+\end{examplebox}
+
+
+\subsection*{Why are there so many models?}
+\vspace{50mm}
+
+\subsection*{Data Analysis Problem-Solving Framework}
+
+\begin{defbox}[Five-Step Problem-Solving Framework]
+\begin{enumerate}
+    \item \textbf{Problem Definition}
+    \item \textbf{Problem Characterization}
+    \item \textbf{Solution Conceptualization}
+    \item \textbf{Method Identification}
+    \item \textbf{Implementation \& Assessment}
+\end{enumerate}
+\end{defbox}
+
+
+\subsection*{Data Imputation}
+
+\vspace{50mm}
+
+
+\textbf{Matrix Methods for Data Imputation}
+
+\begin{examplebox}[Practice question]
+\vspace{240mm}
+\end{examplebox}
+
+\begin{examplebox}[Practice question]
+\vspace{240mm}
+\end{examplebox}
+
+
+\end{document}
