@@ -56,7 +56,8 @@
 \section*{Multivariate Optimization with Equality Constraints}
 
 \textbf{Why constrained optimization?}
-\vspace{20mm}
+In real-world problems, we need to find the best solution while satisfying certain conditions mostly. 
+For example, if you want to optimize your expenses, you might set a constraint that the total must not exceed 10,000.
 
 \begin{defbox}[Constrained Optimization Problem]
 A constrained optimization problem with equality constraints has the form:
@@ -75,19 +76,25 @@ At the optimal point,
 \end{defbox}
 
 \begin{examplebox}[Practice questions]
-\vspace{160mm}
+Find the maximum and minimum of $ f(x,y) = 36x^2 + y^2-9$ subject to the constraint $3x^2 + y^2 =4$.
+\vspace{50mm}
 \end{examplebox}
 
 \subsubsection*{Geometric Interpretation}
-
-The constrained optimum occurs where the gradient of the objective function is a linear combination of the gradients of the constraint functions. 
-\vspace{5mm}
-
 \noindent \textbf{What does this mean geometrically?}
-\vspace{70mm}
-\begin{examplebox}[Practice question]
-\vspace{70mm}
-\end{examplebox}
+At the optimal point, the objective function and constraint curves are tangent to each other. 
+\begin{quesbox}[Question]
+
+The geometric interpretation of the Lagrange multiplier method is that at the optimum:
+
+(a) The constraint curve is perpendicular to the objective function
+
+(b) The gradient of the objective function is parallel to the gradient of the constraint
+
+(c) The objective function equals the constraint function
+
+(d) Both gradients are zero
+\end{quesbox}
 
 
 \subsection*{Multiple Equality Constraints}
@@ -99,7 +106,8 @@ For problems with multiple equality constraints,
 \end{defbox}
 
 \begin{examplebox}[Practice question]
-\vspace{70mm}
+Find the maximum and minimum of $ f(x,y,z) = 3x^2 + y $ subject to the constraint $4x-3y=9, \text{and} x^2+z^2=9 $.
+\vspace{50mm}
 \end{examplebox}
 
 
@@ -126,8 +134,21 @@ These problems are more complex because we must determine which constraints are 
 \end{defbox}
 
 \begin{examplebox}[Practice question]
-\vspace{80mm}
+Find the maximum and minimum of $ f(x,y) = x^2 + y^2 - 4x -6y + 10 $ subject to the constraint $x+y\leq 3 $.
+\vspace{50mm}
 \end{examplebox}
+
+\begin{quesbox}[Question]
+For a problem with $n$ variables and $m$ equality constraints, the Lagrangian method produces a system of:
+
+(a) $n$ equations in $n$ unknowns
+
+(b) $m$ equations in $m$ unknowns
+
+(c) $(n+m)$ equations in $(n+m)$ unknowns
+
+(d) $n \times m$ equations
+\end{quesbox}
 
 
 \section*{Introduction to Data Science}
@@ -135,18 +156,11 @@ These problems are more complex because we must determine which constraints are 
 \begin{defbox}
 \textbf{1. Classification Problems:} Assign labels 
 \begin{itemize}
-\item Binary classification
-\vspace{10mm}
-\item Multiclass classification
-\vspace{10mm}
+\item Binary classification: Two categories (e.g., hypertension/not)
+\item Multiclass classification: Multiple categories (e.g., image recognition with many animals (cat, dog, etc.))
 \end{itemize}
 \textbf{2. Function Approximation Problems:} Find mathematical relationships between input variables and output responses.
 \end{defbox}
-
-\begin{examplebox}[Practice question]
-\vspace{70mm}
-\end{examplebox}
-
 
 \subsection*{Why are there so many models?}
 \vspace{50mm}
@@ -166,18 +180,13 @@ These problems are more complex because we must determine which constraints are 
 
 \subsection*{Data Imputation}
 
-\vspace{50mm}
+Data Imputation is the process of filling in missing values in datasets.
 
 
 \textbf{Matrix Methods for Data Imputation}
 
-\begin{examplebox}[Practice question]
-\vspace{240mm}
-\end{examplebox}
-
-\begin{examplebox}[Practice question]
-\vspace{240mm}
-\end{examplebox}
+Matrix completion techniques can be used to fill missing data by the concepts of null space and pseudo-inverse. 
+But then it may not work well in all situations. What alternative methods can be used?
 
 
 \end{document}
